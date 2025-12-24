@@ -1,0 +1,29 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Python / Compilación
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Mac OS (Específico de tu entorno)
+.DS_Store
+
+# Variables de Entorno (SEGURIDAD BANCARIA)
+.env
+.flaskenv
+
+# Streamlit (Archivos temporales de la UI)
+.streamlit/
+
+# Datos locales (Para no subir el CSV original o bases de datos SQLite de prueba)
+*.csv
+*.db
+*.sqlite3
+
+# Docker (A veces se generan logs locales)
+*.log
