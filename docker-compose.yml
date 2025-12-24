@@ -1,0 +1,48 @@
+services:
+  # Base de Datos con pgvector
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: fs_database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: first_service
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # El Chatbot (App Principal)
+  chatbot:
+    build: .
+    container_name: fs_chatbot
+    command: streamlit run app.py
+    ports:
+      - "8501:8501"
+    environment:
+      - DATABASE_URL=postgresql://postgres:admin@db:5432/first_service
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # El Dashboard de Auditoría
+  dashboard:
+    build: .
+    container_name: fs_dashboard
+    command: streamlit run dashboard.py
+    ports:
+      - "8502:8501"
+    environment:
+      - DATABASE_URL=postgresql://postgres:admin@db:5432/first_service
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

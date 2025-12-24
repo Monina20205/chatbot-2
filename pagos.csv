@@ -1,0 +1,6 @@
+id,cliente,monto,tipo_cuenta,fecha
+101,Jose Perez,500.00,corriente,2025-12-20
+102,Maria Lopez,1250.50,ahorros,2025-12-21
+103,Carlos Ruiz,0.00,nomina,2025-12-22
+104,Ana Garcia,3400.00,ahorros,2025-12-23
+105,Luis Torres,150.75,corriente,2025-12-23
